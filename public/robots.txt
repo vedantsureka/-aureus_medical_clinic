@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aureusmedicalclinic.in/sitemap.xml
