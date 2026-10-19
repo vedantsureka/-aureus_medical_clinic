@@ -4,7 +4,7 @@ import { clinic, testimonials, reviewsLink } from "@/lib/clinic";
 import { PageHero, Btn, Reveal, CtaBanner, seo } from "@/components/site";
 
 export const Route = createFileRoute("/reviews")({
-  head: () => seo("Patient Reviews | Dr. Ayushi Rajendra Thaker, Marine Lines", "Read what patients say about Dr. Ayushi Rajendra Thaker and Aureus Medical Clinic — rated 5.0 on Google.", "/reviews"),
+  head: () => seo("Patient Reviews | Aureus Medical Clinic Doctors, Marine Lines", "Read patient reviews for Aureus Medical Clinic, including physician Dr. Ayushi Thaker and orthopaedic surgeon Dr. Ashwin Joshi.", "/reviews"),
   component: Reviews,
 });
 

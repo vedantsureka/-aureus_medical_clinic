@@ -4,12 +4,12 @@ import { Phone, Quote, ArrowRight, Check } from "lucide-react";
 import clinicImg from "@/assets/clinic.jpg";
 import careImg from "@/assets/care.jpg";
 import { clinic, doctors, services, testimonials, credentials, reviewsLink } from "@/lib/clinic";
-import { Btn, Reveal, SectionHead, RatingBadge, DoctorPortrait, CtaBanner, LocationBlock, Icon, Verify, seo } from "@/components/site";
+import { Btn, Reveal, SectionHead, RatingBadge, DoctorSlideshow, CtaBanner, LocationBlock, Icon, Verify, seo } from "@/components/site";
 
 export const Route = createFileRoute("/")({
   head: () => seo(
-    "Dr. Ayushi Rajendra Thaker | Physician & Diabetologist, Marine Lines Mumbai",
-    "Personalised physician, diabetes and vaccination care with Dr. Ayushi Rajendra Thaker at Aureus Medical Clinic, opposite Wadia Fire Temple, Marine Lines, Mumbai.",
+    "Dr. Ayushi Thaker & Dr. Ashwin Joshi | Aureus Medical Clinic, Mumbai",
+    "Meet Dr. Ayushi Rajendra Thaker and Dr. Ashwin Joshi for physician, diabetes, vaccination and orthopaedic consultations at Aureus Medical Clinic in Marine Lines, Mumbai.",
     "/",
   ),
   component: Home,
@@ -24,7 +24,7 @@ const trust = [
 const why = [
   { i: "UserRound", t: "Personalised consultations", d: "Time to understand your concerns and history." },
   { i: "ShieldCheck", t: "Preventive care approach", d: "Focus on staying well, not only treating illness." },
-  { i: "Stethoscope", t: "Physician-led healthcare", d: "Consult directly with Dr. Ayushi Rajendra Thaker." },
+  { i: "Stethoscope", t: "Physician-led healthcare", d: "Consult our physician and orthopaedic surgeon." },
   { i: "MapPin", t: "Convenient location", d: "Opposite Wadia Fire Temple, Marine Lines East." },
   { i: "HeartHandshake", t: "Supportive experience", d: "A calm, welcoming clinic environment." },
   { i: "CalendarCheck", t: "Easy appointment enquiries", d: "Call or request online in under a minute." },
@@ -50,7 +50,7 @@ function Home() {
             </div>
           </div>
           <div className="relative reveal">
-            <DoctorPortrait className="mx-auto max-w-md" />
+            <DoctorSlideshow />
             <div className="absolute -bottom-6 left-0 md:-left-10"><RatingBadge /></div>
           </div>
         </div>
@@ -78,17 +78,17 @@ function Home() {
           </div>
         </Reveal>
         <div>
-          <SectionHead eyebrow="About the doctor" title="Meet Dr. Ayushi Rajendra Thaker" />
+          <SectionHead eyebrow="Meet our doctors" title="Two specialists, one clinic" />
           <Reveal>
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Dr. Ayushi Rajendra Thaker is a medical practitioner associated with Aureus Medical Clinic in Marine Lines, Mumbai. Her practice is listed for general physician consultations, diabetes care, vaccination services and preventive health support, with an emphasis on understanding individual patient needs.
+              Dr. Ayushi Rajendra Thaker offers general physician, diabetes, vaccination and preventive care consultations. Dr. Ashwin Joshi provides orthopaedic care, including fracture treatment, joint replacement, arthroscopy and sports medicine. Together, they help patients find the right care at Aureus Medical Clinic in Marine Lines.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
-              {credentials.items.map((c) => <span key={c} className="rounded-xl border border-border bg-card px-4 py-2 font-display text-sm font-semibold text-primary">{c}</span>)}
+              {doctors.map((d) => <span key={d.id} className="rounded-xl border border-border bg-card px-4 py-2 font-display text-sm font-semibold text-primary">{d.name} · {d.specialty}</span>)}
             </div>
-            {!credentials.verified && <div className="mt-3"><Verify>Credentials pending confirmation by the doctor</Verify></div>}
+            
             <div className="mt-8 flex flex-wrap gap-3">
-              <Btn to="/about">Read Full Profile</Btn>
+              <Btn to="/about">Meet Both Doctors</Btn>
               <Btn to="/contact" variant="outline">Book Consultation</Btn>
             </div>
           </Reveal>

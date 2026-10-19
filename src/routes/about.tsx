@@ -4,17 +4,18 @@ import { PageHero, Btn, DoctorPortrait, Reveal, SectionHead, Verify, CtaBanner, 
 import { Testimonials } from "./index";
 
 export const Route = createFileRoute("/about")({
-  head: () => seo("About Dr. Ayushi Rajendra Thaker | Aureus Medical Clinic, Marine Lines", "Profiles of Dr. Ayushi Rajendra Thaker and Dr. Ashwin Joshi, physician and orthopaedic surgeon at Aureus Medical Clinic, Marine Lines, Mumbai.", "/about"),
+  head: () => seo("Our Doctors | Dr. Ayushi Thaker & Dr. Ashwin Joshi | Aureus Clinic", "Profiles of Dr. Ayushi Rajendra Thaker and Dr. Ashwin Joshi, physician and orthopaedic surgeon at Aureus Medical Clinic, Marine Lines, Mumbai.", "/about"),
   component: About,
 });
 
 function About() {
   return (
     <>
-      <PageHero eyebrow="Physician profile" title="Dr. Ayushi Rajendra Thaker" sub="Physician, Diabetologist and Vaccination Specialist at Aureus Medical Clinic, Marine Lines, Mumbai.">
+      <PageHero eyebrow="Meet our doctors" title="Dr. Ayushi Thaker & Dr. Ashwin Joshi" sub="Physician, diabetes and preventive care alongside orthopaedic surgery, fracture, joint and sports medicine services at Aureus Medical Clinic in Marine Lines.">
         <Btn to="/contact">Book Consultation</Btn>
       </PageHero>
       <section className="container-x grid gap-14 py-20 lg:grid-cols-[0.8fr_1.2fr]">
+        <div className="lg:col-span-2"><h2 className="text-3xl font-bold">Dr. Ayushi Rajendra Thaker</h2><p className="mt-2 text-muted-foreground">Physician · Diabetes · Vaccinations · Preventive Care</p></div>
         <DoctorPortrait />
         <div className="space-y-12">
           <Reveal>

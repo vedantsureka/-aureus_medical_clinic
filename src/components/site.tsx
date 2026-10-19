@@ -91,13 +91,17 @@ export function Footer() {
       <div className="container-x grid gap-10 py-16 md:grid-cols-4">
         <div className="md:col-span-2">
           <p className="font-display text-lg font-extrabold tracking-[0.18em]">AUREUS MEDICAL CLINIC</p>
-          <p className="mt-1 font-serif italic text-accent">Dr. Ayushi Rajendra Thaker</p>
+          <p className="mt-1 font-serif italic text-accent">Dr. Ayushi Rajendra Thaker · Dr. Ashwin Joshi</p>
+          <p className="mt-3 text-sm opacity-85">Physician, Diabetes & Preventive Care <span aria-hidden="true">·</span> Orthopaedic Surgery</p>
           <p className="mt-4 max-w-md text-sm opacity-75">Physician, orthopaedic, diabetes and vaccination care in Marine Lines, Mumbai. This website provides general information only and is not a substitute for medical advice.</p>
         </div>
         <div className="text-sm">
           <p className="mb-3 font-semibold text-accent">Visit</p>
           <p className="opacity-80">{clinic.fullAddress}</p>
-          <a href={clinic.phoneTel} className="mt-3 block font-semibold">{clinic.phoneDisplay}</a>
+          <div className="mt-3 space-y-2">
+            <a href={clinic.phoneTel} className="block font-semibold">Dr. Ayushi: {clinic.phoneDisplay}</a>
+            <a href="tel:08097902438" className="block font-semibold">Dr. Ashwin: 080979 02438</a>
+          </div>
         </div>
         <div className="flex flex-col gap-2 text-sm opacity-90">
           <p className="mb-1 font-semibold text-accent">Explore</p>
@@ -149,6 +153,58 @@ export function RatingBadge() {
     <div className="inline-flex items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 shadow-lift">
       <div className="flex text-accent">{[0, 1, 2, 3, 4].map((i) => <Star key={i} className="h-4 w-4 fill-current" />)}</div>
       <p className="text-sm font-semibold text-primary">5.0 ★ Google Rating <span className="text-muted-foreground">| {clinic.reviewCount} Reviews</span></p>
+    </div>
+  );
+}
+
+
+/** Auto-advancing homepage portrait slider. Replace public/doctors/*.svg with photos
+ * using the same filenames, or change these two paths to .jpg/.webp.
+ * Pauses on hover/focus and honours reduced-motion preferences.
+ */
+export function DoctorSlideshow({ className = "" }: { className?: string }) {
+  const slides = [
+    { id: "ayushi", src: "/doctors/ayushi.svg", name: "Dr. Ayushi Rajendra Thaker", role: "Physician · Diabetes & Preventive Care" },
+    { id: "ashwin", src: "/doctors/ashwin.svg", name: "Dr. Ashwin Joshi", role: "Orthopaedic Surgeon" },
+  ];
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(true);
+  useEffect(() => {
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReducedMotion(preference.matches);
+    update();
+    preference.addEventListener("change", update);
+    return () => preference.removeEventListener("change", update);
+  }, []);
+  useEffect(() => {
+    if (paused || reducedMotion) return;
+    const interval = window.setInterval(() => setActive(i => (i + 1) % slides.length), 5000);
+    return () => window.clearInterval(interval);
+  }, [paused, reducedMotion]);
+  return (
+    <div className={`relative mx-auto aspect-[4/5] max-w-md overflow-hidden rounded-[2rem] bg-deep shadow-lift ${className}`}
+         role="region" aria-roledescription="carousel" aria-label="Meet the two clinic doctors"
+         onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
+         onFocusCapture={() => setPaused(true)} onBlurCapture={e => { if (!e.currentTarget.contains(e.relatedTarget)) setPaused(false); }}>
+      {slides.map((slide, index) => (
+        <div key={slide.id} className={`absolute inset-0 transition-opacity duration-700 ${index === active ? "z-10 opacity-100" : "pointer-events-none opacity-0"}`}
+             aria-hidden={index !== active}>
+          <img src={slide.src} alt={`Portrait placeholder for ${slide.name}; replace with an approved doctor photograph`}
+               className="h-full w-full object-cover" loading={index === 0 ? "eager" : "lazy"} />
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/60 to-transparent px-6 pb-16 pt-16 text-white">
+            <p className="font-display text-xl font-bold">{slide.name}</p>
+            <p className="mt-1 text-sm text-white/85">{slide.role}</p>
+          </div>
+        </div>
+      ))}
+      <div className="absolute bottom-5 left-0 right-0 z-20 flex items-center justify-center gap-3" aria-label="Choose a doctor slide">
+        {slides.map((slide, index) => (
+          <button key={slide.id} type="button" onClick={() => setActive(index)}
+            className={`h-3 rounded-full border border-white/75 transition-all ${active === index ? "w-9 bg-white" : "w-3 bg-white/35 hover:bg-white/75"}`}
+            aria-label={`Show ${slide.name}`} aria-current={active === index ? "true" : undefined} />
+        ))}
+      </div>
     </div>
   );
 }
