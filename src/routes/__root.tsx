@@ -27,8 +27,8 @@ const schema = {
     streetAddress: "Ground Floor, Shop No. 2, Singapuri Building, 609, Jagannath Shankar Seth Road, Opp. Wadia Fire Temple, Marine Lines East",
     addressLocality: "Mumbai", addressRegion: "Maharashtra", postalCode: "400002", addressCountry: "IN",
   },
-  medicalSpecialty: ["PrimaryCare", "Endocrine"],
-  employee: { "@type": "Physician", name: clinic.doctor },
+  medicalSpecialty: ["PrimaryCare", "Endocrine", "Orthopedic"],
+  employee: [{ "@type": "Physician", name: clinic.doctor }, { "@type": "Physician", name: "Dr. Ashwin Joshi", medicalSpecialty: "Orthopedic" }],
 };
 
 function NotFoundComponent() {

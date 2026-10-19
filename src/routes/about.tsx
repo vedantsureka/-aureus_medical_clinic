@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { credentials, profileFields, services } from "@/lib/clinic";
+import { credentials, profileFields, services, doctors } from "@/lib/clinic";
 import { PageHero, Btn, DoctorPortrait, Reveal, SectionHead, Verify, CtaBanner, LocationBlock, Icon, seo } from "@/components/site";
 import { Testimonials } from "./index";
 
 export const Route = createFileRoute("/about")({
-  head: () => seo("About Dr. Ayushi Rajendra Thaker | Aureus Medical Clinic, Marine Lines", "Profile of Dr. Ayushi Rajendra Thaker, physician and diabetologist at Aureus Medical Clinic, Marine Lines, Mumbai.", "/about"),
+  head: () => seo("About Dr. Ayushi Rajendra Thaker | Aureus Medical Clinic, Marine Lines", "Profiles of Dr. Ayushi Rajendra Thaker and Dr. Ashwin Joshi, physician and orthopaedic surgeon at Aureus Medical Clinic, Marine Lines, Mumbai.", "/about"),
   component: About,
 });
 
@@ -57,6 +57,10 @@ function About() {
             <Reveal><h3 className="text-2xl font-bold">Preventive & lifestyle healthcare</h3><p className="mt-3 text-muted-foreground">Alongside treating illness, the practice places emphasis on vaccination, screening guidance and sustainable lifestyle habits.</p></Reveal>
           </div>
         </div>
+      </section>
+      <section className="container-x py-20" id="orthopaedics">
+        <PageHero eyebrow="Orthopaedic surgeon" title="Dr. Ashwin Joshi" sub="Fracture treatment, joint replacement, arthroscopy and sports medicine in Marine Lines, Mumbai."><Btn to="/contact">Request Orthopaedic Consultation</Btn><Btn href="tel:08097902438" variant="outline">Call Dr. Joshi</Btn></PageHero>
+        <div className="grid gap-8 py-12 md:grid-cols-2"><div className="rounded-3xl bg-deep p-10 text-primary-foreground"><p className="font-serif text-6xl italic text-accent">AJ</p><h3 className="mt-5 text-2xl font-bold">Dr. Ashwin Joshi</h3><p className="mt-2 opacity-80">Orthopaedic Surgeon</p><p className="mt-5 opacity-80">Google listing: 5.0 / 5 from 31 reviews (snapshot provided; may change).</p></div><div><h3 className="text-2xl font-bold">Orthopaedic services</h3><div className="mt-6 grid gap-4">{["Fracture treatment", "Joint replacement", "Arthroscopy", "Sports medicine", "Joint pain and injury assessment"].map(x=><div key={x} className="rounded-2xl border border-border p-4 font-semibold">{x}</div>)}</div><p className="mt-5 text-sm text-muted-foreground">Qualifications, available procedures and consultation hours should be verified with the clinic before publishing additional claims.</p></div></div>
       </section>
       <Testimonials />
       <CtaBanner />

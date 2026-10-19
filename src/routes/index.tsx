@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Phone, Quote, ArrowRight, Check } from "lucide-react";
 import clinicImg from "@/assets/clinic.jpg";
 import careImg from "@/assets/care.jpg";
-import { clinic, services, testimonials, credentials, reviewsLink } from "@/lib/clinic";
+import { clinic, doctors, services, testimonials, credentials, reviewsLink } from "@/lib/clinic";
 import { Btn, Reveal, SectionHead, RatingBadge, DoctorPortrait, CtaBanner, LocationBlock, Icon, Verify, seo } from "@/components/site";
 
 export const Route = createFileRoute("/")({
@@ -40,9 +40,9 @@ function Home() {
             <h1 className="reveal mt-5 text-5xl font-extrabold leading-[1.02] md:text-7xl">
               Compassionate Care. <span className="font-serif font-normal italic text-secondary">Healthier</span> Lives.
             </h1>
-            <p className="reveal mt-6 font-display text-xl font-semibold text-primary/85">Personalised Physician, Diabetes & Vaccination Care in Marine Lines, Mumbai.</p>
+            <p className="reveal mt-6 font-display text-xl font-semibold text-primary/85">Physician, Diabetes, Orthopaedic & Vaccination Care in Marine Lines, Mumbai.</p>
             <p className="reveal mt-4 max-w-xl text-muted-foreground">
-              Experience attentive, personalised healthcare with Dr. Ayushi Rajendra Thaker at Aureus Medical Clinic. From general physician consultations and diabetes management to vaccination and preventive healthcare, our focus is on helping you make informed decisions about your health.
+              Consult Dr. Ayushi Rajendra Thaker for physician, diabetes and preventive healthcare, or Dr. Ashwin Joshi for orthopaedic care, fractures, joint treatment and sports medicine.
             </p>
             <div className="reveal mt-8 flex flex-wrap gap-3">
               <Btn to="/contact">Book a Consultation <ArrowRight className="h-4 w-4" /></Btn>
@@ -65,6 +65,10 @@ function Home() {
         </div>
       </section>
 
+      <section className="container-x py-20">
+        <SectionHead eyebrow="Meet our team" title="Two doctors. One caring clinic." sub="Select the expertise that best suits your needs." />
+        <div className="mt-10 grid gap-6 md:grid-cols-2">{doctors.map(d => <div key={d.id} className="rounded-3xl border border-border bg-card p-8 shadow-soft"><p className="eyebrow">{d.specialty}</p><h3 className="mt-3 text-2xl font-bold">{d.name}</h3><p className="mt-4 text-muted-foreground">{d.description}</p><div className="mt-6 flex gap-3"><Btn to="/contact">Request appointment</Btn><Btn href={d.tel} variant="outline">Call</Btn></div></div>)}</div>
+      </section>
       <section className="container-x grid items-center gap-14 py-24 lg:grid-cols-2">
         <Reveal className="relative">
           <img src={clinicImg} alt="Calm consultation room at Aureus Medical Clinic (representative image)" width={1280} height={960} loading="lazy" className="rounded-[2rem] object-cover shadow-lift" />

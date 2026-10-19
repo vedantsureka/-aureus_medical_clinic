@@ -14,6 +14,11 @@ export const clinic = {
   siteUrl: "https://aureusmedicalclinic.in",
 };
 
+export const doctors = [
+  { id: "ayushi", name: "Dr. Ayushi Rajendra Thaker", specialty: "Physician · Diabetes & Preventive Care", phone: "+91 91378 95139", tel: "tel:+919137895139", description: "General physician consultations, diabetes management, vaccinations and preventive care." },
+  { id: "ashwin", name: "Dr. Ashwin Joshi", specialty: "Orthopaedic Surgeon", phone: "080979 02438", tel: "tel:08097902438", description: "Fracture treatment, joint replacement, arthroscopy and sports medicine.", rating: 5.0, reviewCount: 31 },
+] as const;
+
 export const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinic.mapsQuery)}`;
 export const directionsLink = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(clinic.mapsQuery)}`;
 export const mapsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(clinic.mapsQuery)}&z=16&output=embed`;
@@ -202,6 +207,10 @@ export const consultationTypes = [
   "Vaccination Enquiry",
   "Preventive Healthcare",
   "Follow-up Consultation",
+  "Orthopaedic Consultation",
+  "Fracture / Injury Assessment",
+  "Joint Pain / Joint Replacement",
+  "Arthroscopy / Sports Medicine",
   "Other Enquiry",
 ];
 

@@ -6,7 +6,7 @@ import { clinic, directionsLink, hours } from "@/lib/clinic";
 
 const nav = [
   { to: "/", label: "Home" },
-  { to: "/about", label: "About Doctor" },
+  { to: "/about", label: "Our Doctors" },
   { to: "/services", label: "Treatments & Services" },
   { to: "/vaccinations", label: "Vaccinations" },
   { to: "/reviews", label: "Patient Reviews" },
@@ -57,7 +57,7 @@ export function Header() {
       <div className="container-x flex h-20 items-center justify-between gap-4">
         <Link to="/" className="flex flex-col leading-tight">
           <span className="whitespace-nowrap font-display text-sm font-extrabold tracking-[0.16em] text-primary">AUREUS MEDICAL CLINIC</span>
-          <span className="font-serif text-sm italic text-secondary">Dr. Ayushi Rajendra Thaker</span>
+          <span className="font-serif text-sm italic text-secondary">Ayushi Thaker · Ashwin Joshi</span>
         </Link>
         <nav className="hidden items-center gap-4 xl:flex">
           {nav.map((n) => (
@@ -92,7 +92,7 @@ export function Footer() {
         <div className="md:col-span-2">
           <p className="font-display text-lg font-extrabold tracking-[0.18em]">AUREUS MEDICAL CLINIC</p>
           <p className="mt-1 font-serif italic text-accent">Dr. Ayushi Rajendra Thaker</p>
-          <p className="mt-4 max-w-md text-sm opacity-75">Physician, diabetes and vaccination care in Marine Lines, Mumbai. This website provides general information only and is not a substitute for medical advice.</p>
+          <p className="mt-4 max-w-md text-sm opacity-75">Physician, orthopaedic, diabetes and vaccination care in Marine Lines, Mumbai. This website provides general information only and is not a substitute for medical advice.</p>
         </div>
         <div className="text-sm">
           <p className="mb-3 font-semibold text-accent">Visit</p>
@@ -171,7 +171,7 @@ export function CtaBanner() {
       <Reveal className="relative overflow-hidden rounded-[2rem] bg-deep px-8 py-16 text-center text-primary-foreground md:px-16">
         <div className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-secondary/30 blur-3xl" />
         <h2 className="relative text-3xl font-bold text-primary-foreground md:text-5xl">Your Health Deserves <span className="font-serif italic text-accent">Personalised</span> Attention.</h2>
-        <p className="relative mx-auto mt-4 max-w-xl opacity-80">Connect with Aureus Medical Clinic to enquire about a consultation with Dr. Ayushi Rajendra Thaker.</p>
+        <p className="relative mx-auto mt-4 max-w-xl opacity-80">Connect with Aureus Medical Clinic to enquire about a consultation with either doctor.</p>
         <div className="relative mt-8 flex flex-wrap justify-center gap-3">
           <Btn to="/contact" variant="gold">Request Appointment</Btn>
           <Btn href={clinic.phoneTel} variant="light"><Phone className="h-4 w-4" />Call {clinic.phoneDisplay}</Btn>
