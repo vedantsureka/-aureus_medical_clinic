@@ -10,3 +10,23 @@
 .admin-frame{min-height:100vh;background:#f3f7f7}.admin-header{background:#112f49;color:white;padding:21px 0}.admin-box{background:white;border-radius:16px;border:1px solid #dae7e9;padding:24px;box-shadow:0 10px 32px #16324f08}.admin-input{width:100%;background:white;color:#16324F;border:1px solid #cddcde;border-radius:9px;padding:11px 12px;font-size:13px;min-height:42px}.admin-label{font-weight:700;color:#476071;font-size:12px;display:block;margin-bottom:7px}.admin-tab{background:#fff;border:1px solid #dce7e8;border-radius:10px;color:#4a6270;font-size:13px;font-weight:700;padding:12px 15px}.admin-tab.active{background:#16324F;color:white;border-color:#16324F}.admin-table{width:100%;border-collapse:collapse;min-width:800px}.admin-table th{text-align:left;color:#607583;font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:#f4f8f8;padding:13px}.admin-table td{border-top:1px solid #e8eeee;padding:14px;font-size:13px;vertical-align:middle}.admin-pill{font-size:11px;font-weight:800;padding:6px 9px;border-radius:7px;text-transform:capitalize}.admin-pill.pending{background:#fff4dd;color:#92670c}.admin-pill.confirmed{background:#dcf5e9;color:#1e6c50}.admin-pill.cancelled{background:#fbe8e6;color:#9d3c39}.admin-note{background:#edf7f6;color:#456f70;padding:14px 18px;border-radius:12px;font-size:12px;line-height:1.6}.admin-edit-field{display:block;margin-bottom:15px}.admin-edit-field textarea{min-height:95px}.admin-edit-field .admin-input{margin-top:7px}.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 @media(max-width:1200px){.site-header .header-phone,.site-header nav:not(.mobile-menu){display:none}.site-header .icon-button{display:inline-flex}.hero-art{min-height:455px}.floating-note.two{right:0}}@media(max-width:767px){.container-wide{width:min(100% - 34px,1180px)}.section-spacing{padding-block:68px}.site-header{height:74px}.mobile-menu{top:74px}.hero{padding:60px 0 65px}.hero-art{min-height:355px;margin-top:25px}.art-frame{inset:10px 20px 0 30px;border-radius:100px 100px 23px 23px}.floating-note.one{left:0;top:80px}.floating-note.two{right:0;bottom:32px}.floating-note{padding:11px 14px;font-size:10px}.art-bottom{left:45px;bottom:26px}.doctor-content{padding:24px}.doctor-visual{height:225px}.visual-label{top:194px}.booking-shell{padding:23px 18px}.page-hero{padding:55px 0}.admin-grid{grid-template-columns:1fr}.footer{padding-bottom:63px}.top-strip{font-size:9px}.hero-title{font-size:clamp(2.65rem,12vw,4.8rem)}}
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}*,*:before,*:after{transition-duration:.01ms!important;animation-duration:.01ms!important;scroll-behavior:auto!important}.doctor-card:hover,.service-card:hover,.btn:hover{transform:none}}
+
+
+/* Call Doctor popup: each clickable doctor/number pair stays in one row. */
+.call-popover{width:max-content;min-width:290px;max-width:calc(100vw - 24px);z-index:80}
+.site-header .call-popover a,
+.mobile-action-bar .call-popover a{
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  width:100%;
+  white-space:nowrap;
+  text-align:left;
+  padding:12px;
+  font-size:12px;
+}
+.call-popover a span{color:#16324f;font-weight:650}
+.call-popover a small{font-size:11px;flex-shrink:0}
+@media(max-width:767px){.mobile-action-bar .call-popover{left:0}}
