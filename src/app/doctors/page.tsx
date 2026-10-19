@@ -1,0 +1,5 @@
+import {getSiteModel} from '@/lib/public-data';
+import {DoctorCard,CtaBand,Eyebrow,SectionHeading} from '@/components/pieces';
+import {pageMetadata} from '@/lib/meta';
+export const metadata=pageMetadata('Our Doctors','Meet Dr. Ayushi Rajendra Thaker and Dr. Ashwin Joshi at Aureus Medical Clinic Marine Lines.','/doctors');export const dynamic='force-dynamic';
+export default async function Doctors(){const {doctors}=await getSiteModel();return <><div className="page-hero"><div className="container-wide"><Eyebrow>OUR DOCTORS</Eyebrow><h1>Two specialists.<br/>One attentive team.</h1><p>Get to know your physician and orthopaedic surgeon, their areas of practice and the best way to book a consultation.</p></div></div><section className="section-spacing"><div className="container-wide"><SectionHeading eyebrow="OUR CLINICIANS" title="Meet the Aureus doctors"/><div className="grid md:grid-cols-2 gap-7"><DoctorCard doctor={doctors.ayushi}/><DoctorCard doctor={doctors.ashwin} index={1}/></div></div></section><CtaBand/></>}

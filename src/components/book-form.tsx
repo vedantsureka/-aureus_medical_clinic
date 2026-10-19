@@ -1,0 +1,27 @@
+'use client';
+import {useState, type FormEvent} from 'react';
+import Script from 'next/script';
+import {ArrowRight, CheckCircle2, AlertCircle, CalendarDays, LockKeyhole} from 'lucide-react';
+import {consultationTypes,baseModel,type DoctorId} from '@/lib/site';
+export function BookForm({preselectedDoctor}:{preselectedDoctor?:DoctorId}){
+ const [doctor,setDoctor]=useState<DoctorId>(preselectedDoctor||'ayushi');const [busy,setBusy]=useState(false);
+ const [result,setResult]=useState<{ok:boolean;message:string}|null>(null);
+ const siteKey=process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+ async function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();setBusy(true);setResult(null);
+ const form=e.currentTarget;const data=new FormData(form);
+ const payload={doctor_id:doctor,full_name:String(data.get('full_name')||''),phone:String(data.get('phone')||''),email:String(data.get('email')||''),consultation_type:String(data.get('consultation_type')||''),preferred_date:String(data.get('preferred_date')||''),preferred_time:String(data.get('preferred_time')||''),message:String(data.get('message')||''),consent:data.get('consent')==='on',website:String(data.get('website')||''),turnstile_token:String(data.get('cf-turnstile-response')||'')};
+ try{const response=await fetch('/api/appointments',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data: {message?:string;error?:string}=await response.json();if(!response.ok)throw new Error(data.error||'Unable to save the request. Please contact the doctor directly.');setResult({ok:true,message:data.message||'Your request was received and is pending clinic confirmation.'});form.reset();}
+ catch(error){setResult({ok:false,message:error instanceof Error?error.message:'Something went wrong. Please phone the doctor.'});}
+ finally{setBusy(false);}
+ }
+ const today=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Kolkata'});
+ return <div className="booking-shell"><div className="booking-top"><span className="eyebrow"><span className="eyebrow-dot"/> APPOINTMENT ENQUIRY</span><h2 className="font-heading text-3xl text-navy font-semibold mt-4">Who would you like to consult?</h2><p className="text-muted mt-2">Choose your doctor, then send a request for their team to confirm.</p></div>
+ <div className="grid sm:grid-cols-2 gap-3 mb-8">{(['ayushi','ashwin'] as DoctorId[]).map(id=><button key={id} className={`doctor-choice ${doctor===id?'selected':''}`} onClick={()=>{setDoctor(id);setResult(null);}} type="button" aria-pressed={doctor===id}><span className="font-heading font-semibold text-navy text-lg">{baseModel.doctors[id].name}</span><span className="text-muted text-sm mt-1">{baseModel.doctors[id].shortTitle}</span><span className="choice-check">{doctor===id?<CheckCircle2 size={18}/>:<span className="empty-circle"/>}</span></button>)}</div>
+ <form onSubmit={submit} className="booking-form"><input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true"/>
+ <div className="grid sm:grid-cols-2 gap-5"><label>Patient's full name <span>*</span><input name="full_name" required maxLength={100} autoComplete="name" placeholder="Enter your full name"/></label><label>Mobile number (India) <span>*</span><div className="relative"><span className="phone-prefix">+91</span><input name="phone" type="tel" required inputMode="tel" pattern="[6-9][0-9]{9}" minLength={10} maxLength={10} className="!pl-14" placeholder="9876543210"/></div></label><label>Email <small>(optional)</small><input type="email" name="email" maxLength={160} autoComplete="email" placeholder="you@example.com"/></label><label>Consultation type <span>*</span><select name="consultation_type" key={doctor} required defaultValue=""><option value="" disabled>Select type</option>{consultationTypes[doctor].map(t=><option key={t}>{t}</option>)}</select></label><label>Preferred date <span>*</span><input name="preferred_date" type="date" required min={today}/></label><label>Preferred time <span>*</span><input name="preferred_time" type="time" required/></label></div>
+ <label className="mt-5">Additional note <small>(optional — avoid sharing detailed medical information)</small><textarea name="message" maxLength={500} rows={3} placeholder="Anything practical we should know about arranging your visit?"/></label>
+ <label className="consent-row"><input type="checkbox" name="consent" required/><span>I consent to Aureus Medical Clinic storing and using my contact details to respond to this appointment request. I understand this is <strong>not a confirmed booking</strong>. Read the <a className="text-teal underline" href="/privacy" target="_blank">Privacy Policy</a>.</span></label>
+ {siteKey&&<><Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive"/><div className="cf-turnstile mb-5" data-sitekey={siteKey}/></>}
+ {result&&<div role="status" className={`form-result ${result.ok?'success':'error'}`}>{result.ok?<CheckCircle2 size={18}/>:<AlertCircle size={18}/>}<span>{result.message}</span></div>}
+ <button disabled={busy} type="submit" className="btn btn-navy w-full sm:w-auto mt-4">{busy?'Sending request…':'Send Appointment Request'} <ArrowRight size={18}/></button><div className="flex items-center gap-2 text-xs text-muted mt-5"><LockKeyhole size={14}/> Contact details are kept private and accessible to authorised clinic staff only.</div></form></div>;
+}

@@ -1,0 +1,15 @@
+import fs from 'node:fs';import path from 'node:path';
+const root=process.cwd();let failed=0;function check(ok,label){console.log(`${ok?'PASS':'FAIL'} ${label}`);if(!ok)failed++};
+const read=(name)=>fs.readFileSync(path.join(root,name),'utf8');
+const pageFiles=['src/app/page.tsx','src/app/about/page.tsx','src/app/doctors/page.tsx','src/app/doctors/[slug]/page.tsx','src/app/specialties/page.tsx','src/app/specialties/[slug]/page.tsx','src/app/reviews/page.tsx','src/app/faqs/page.tsx','src/app/contact/page.tsx','src/app/book/page.tsx','src/app/admin/page.tsx'];
+pageFiles.forEach(file=>check(fs.existsSync(path.join(root,file)),`Route ${file}`));
+const client=read('src/lib/supabase-browser.ts'),api=read('src/app/api/appointments/route.ts'),schema=read('supabase/schema.sql'),admin=read('src/app/admin/page.tsx');
+check(client.includes('persistSession:false')&&client.includes('autoRefreshToken:false'),'Refresh-to-logout SDK flags');
+check(admin.includes('setStaff(null)')&&admin.includes('15*60*1000'),'Admin login and inactivity protection');
+check(api.includes("runtime='nodejs'")&&api.includes('SUPABASE_SERVICE_ROLE_KEY')&&!client.includes('SERVICE_ROLE_KEY'),'Private server-only insert credential');
+check(api.includes('schema.safeParse')&&api.includes('consent')&&api.includes('validateTurnstile'),'Form validation, consent and Turnstile verification');
+check(schema.includes('enable row level security')&&schema.includes('admin or assigned doctor sees appointments')&&schema.includes('No anonymous SELECT/INSERT/UPDATE/DELETE'),'RLS and patient-data segregation');
+check(schema.includes('on public.doctor_profiles for update')&&schema.includes("id=(select public.staff_doctor())"),'Doctor-specific editing policy');
+check(!fs.existsSync(path.join(root,'.env.local')),'No private credentials bundled');
+check(!read('src/lib/site.ts').match(/service.role.key\s*=/i),'No embedded service-role credential');
+process.exitCode=failed?1:0;
